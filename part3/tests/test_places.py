@@ -13,8 +13,7 @@ class TestPlaces(unittest.TestCase):
         self.app_context.push()
         db.create_all()
         
-
-      self.user = User(
+        self.user = User(
             first_name='Owner',
             last_name='User',
             email='owner@test.com',
@@ -22,7 +21,6 @@ class TestPlaces(unittest.TestCase):
         )
         db.session.add(self.user)
         db.session.commit()
-        
         
         self.place = Place(
             title='Test Place',
@@ -43,8 +41,8 @@ class TestPlaces(unittest.TestCase):
         self.app_context.pop()
     
     def test_create_place(self):
-       
-        response = self.client.post('/api/v1/places/',
+        response = self.client.post(
+            '/api/v1/places/',
             json={
                 'title': 'New Place',
                 'description': 'New Description',
@@ -60,8 +58,8 @@ class TestPlaces(unittest.TestCase):
         self.assertEqual(data['title'], 'New Place')
     
     def test_create_place_without_auth(self):
-
-      response = self.client.post('/api/v1/places/',
+        response = self.client.post(
+            '/api/v1/places/',
             json={
                 'title': 'New Place',
                 'price': 150.0,
@@ -73,15 +71,14 @@ class TestPlaces(unittest.TestCase):
         self.assertEqual(response.status_code, 401)
     
     def test_get_all_places(self):
-        
         response = self.client.get('/api/v1/places/')
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.data)
         self.assertIsInstance(data, list)
     
     def test_update_own_place(self):
-        
-        response = self.client.put(f'/api/v1/places/{self.place.id}',
+        response = self.client.put(
+            f'/api/v1/places/{self.place.id}',
             json={'title': 'Updated Title'},
             headers={'Authorization': f'Bearer {self.user_token}'}
         )
