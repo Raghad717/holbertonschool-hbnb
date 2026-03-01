@@ -1,4 +1,5 @@
-from app.extensions import db
+"""Association table for many-to-many relationship between Place and Amenity"""
+from hbnb.app import db
 
 # Association table for many-to-many relationship
 place_amenity = db.Table('place_amenity',
