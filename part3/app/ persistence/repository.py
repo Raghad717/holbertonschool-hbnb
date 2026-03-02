@@ -1,5 +1,13 @@
 from app.extensions import db
+from app.models.base_model import BaseModel
 
+class Place(BaseModel):
+    __tablename__ = "places"
+
+    title = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text)
+    price = db.Column(db.Float, nullable=False)
+    owner_id = db.Column(db.String(36), db.ForeignKey("users.id"))
 class SQLAlchemyRepository:
 
     def add(self, obj):
