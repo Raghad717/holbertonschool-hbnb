@@ -2,6 +2,15 @@ from flask import request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.models.place import Place
 from app.extensions import db
+from app.models.base_model import BaseModel
+
+class Place(BaseModel):
+    __tablename__ = "places"
+
+    title = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text)
+    price = db.Column(db.Float, nullable=False)
+    owner_id = db.Column(db.String(36), db.ForeignKey("users.id"))
 
 @places_bp.route("/", methods=["POST"])
 @jwt_required()
