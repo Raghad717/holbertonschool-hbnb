@@ -3,6 +3,13 @@ from flask_restx import Namespace, Resource, fields
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from hbnb.app.services.facade import HBnBFacade
 
+class Review(BaseModel):
+    __tablename__ = "reviews"
+
+    text = db.Column(db.Text, nullable=False)
+    rating = db.Column(db.Integer, nullable=False)
+    user_id = db.Column(db.String(36), db.ForeignKey("users.id"))
+    place_id = db.Column(db.String(36), db.ForeignKey("places.id"))
 # Create namespace for review operations
 review_namespace = Namespace('reviews', description='Guest feedback management')
 
