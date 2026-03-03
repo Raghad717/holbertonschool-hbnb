@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from typing import Any
 
-from hbnb.app.models.base_model import BaseModel
-from hbnb.app import db
+from app.models.base_model import BaseModel
+from app import db
 
 
 class Review(BaseModel):
