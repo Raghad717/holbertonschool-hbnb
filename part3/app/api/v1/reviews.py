@@ -13,10 +13,19 @@ review_model = api.model('Review', {
 
 @api.route('/')
 class ReviewList(Resource):
+
+    def get(self):
+        reviews = facade.get_all_reviews()
+        return [r.to_dict() for r in reviews], 200
+
     @jwt_required()
     @api.expect(review_model)
     def post(self):
         user_id = get_jwt_identity()
         data = request.get_json()
+
+        if not data:
+            return {"error": "Invalid input"}, 400
+
         review = facade.create_review(user_id=user_id, **data)
         return review.to_dict(), 201
