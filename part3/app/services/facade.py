@@ -23,9 +23,9 @@ class HBnBFacade:
         self.users.create(user)
         return user.to_dict(), 201
 
-    def get_user_by_email(self, email: str):
-        return self.users.get_by_email(email)
-
+    def get_all_users(self):
+    return self.users.get_all()  
+    
     # ---------------- PLACES ----------------
     def create_place(self, user_id: str, **data):
         place = Place(
