@@ -22,12 +22,13 @@ class UserList(Resource):
 
     @api.expect(user_model)
     def post(self):
-
         data = request.get_json()
-
         if not data:
             return {"error": "Invalid input"}, 400
-
         user, status = facade.create_user(data)
-
         return user, status
+
+    def get(self):
+        # GET all users
+        users = [user.to_dict() for user in facade.users.get_all()]
+        return users, 200
