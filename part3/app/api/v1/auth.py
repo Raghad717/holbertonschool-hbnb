@@ -5,11 +5,9 @@ from app.extensions import bcrypt
 
 auth_bp = Blueprint('auth', __name__)
 
-@auth_bp.route('/', methods=['POST'])
+@auth_bp.route('/login', methods=['POST'])
 def login():
-
     data = request.get_json()
-
     email = data.get("email")
     password = data.get("password")
 
@@ -17,7 +15,6 @@ def login():
         return jsonify({"message": "Email and password are required"}), 400
 
     user = User.query.filter_by(email=email).first()
-
     if not user:
         return jsonify({"message": "User not found"}), 404
 
