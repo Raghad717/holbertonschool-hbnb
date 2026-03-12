@@ -3,6 +3,7 @@ from app import create_app
 from app.extensions import db
 from app.models.user import User
 
+
 class TestUsers(unittest.TestCase):
 
     def setUp(self):
@@ -20,6 +21,7 @@ class TestUsers(unittest.TestCase):
                 is_admin=True
             )
             admin.set_password("admin123")
+
             db.session.add(admin)
             db.session.commit()
 
@@ -28,18 +30,26 @@ class TestUsers(unittest.TestCase):
             db.drop_all()
 
     def get_admin_token(self):
-        response = self.client.post("/api/v1/login", json={
+        response = self.client.post("/api/v1/auth/login", json={
             "email": "admin@test.com",
             "password": "admin123"
         })
-        return response.get_json()["access_token"]
+
+        data = response.get_json()
+        self.assertIn("access_token", data)
+
+        return data["access_token"]
 
     def test_admin_access(self):
         token = self.get_admin_token()
 
         response = self.client.get(
-            "/api/v1/users",
+            "/api/v1/users/",
             headers={"Authorization": f"Bearer {token}"}
         )
 
         self.assertEqual(response.status_code, 200)
+
+    def test_users_without_token(self):
+        response = self.client.get("/api/v1/users/")
+        self.assertEqual(response.status_code, 401)
