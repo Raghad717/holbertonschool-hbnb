@@ -101,5 +101,4 @@ class HBnBFacade:
         return place.amenities if place else []
 
 
-# إنشاء نسخة واحدة من Facade للاستخدام العالمي
 facade = HBnBFacade()
