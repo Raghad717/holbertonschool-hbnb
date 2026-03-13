@@ -220,6 +220,9 @@ Junction table for many-to-many relationship between PLACES and AMENITIES.
 - **Int for rating**: to rate the place from 1 to 5
 - **Datetime timestamps**: Time-based queries and sorting
 
+---
 
-
-
+### Authors 
+- Raghad Almalki
+- Jana Bakri
+- Rama Alsheheri
