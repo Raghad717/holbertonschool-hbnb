@@ -1,109 +1,120 @@
-# HBnB – Part 4: Simple Web Client
+# HBnB – Part 4 (Simple Web Client)
 
 ## Overview
 
-This project represents the **frontend (client-side)** of the HBnB application. It is built using **HTML5, CSS3, and JavaScript (ES6)** and connects to a previously developed backend API.
+This is the **frontend** of the HBnB project. It is built with:
 
-The goal is to provide a dynamic, user-friendly interface that allows users to:
+* HTML
+* CSS
+* JavaScript (ES6)
 
-* Authenticate (login)
-* View places
-* View place details
+It connects to a backend API to:
+
+* Login users
+* Show places
+* Show place details
 * Add reviews
-* (Optional) Admin management
 
 ---
 
-## Features
+## Pages
 
-### 1. Authentication
+### 1. Login (login.html)
 
-* Users can log in using email and password.
-* JWT token is stored in browser cookies.
-* Token is used for authenticated API requests.
+* User enters email and password
+* Sends request to API
+* Saves token in cookie
+* Redirects to index page
 
-### 2. Places Listing
+### 2. Index (index.html)
 
-* Fetches all places from the API.
-* Displays them as cards.
-* Supports client-side filtering by price.
+* Shows all places
+* Each place has:
 
-### 3. Place Details
+  * Title
+  * Price
+  * "View Details" button
+* Filter places by price
+* Shows login link only if user is not logged in
 
-* Displays full details of a selected place.
-* Shows amenities, owner info, and reviews.
-* Allows adding reviews if authenticated.
+### 3. Place Details (place.html)
 
-### 4. Add Review
+* Shows full info about a place:
 
-* Authenticated users can submit reviews.
-* Includes rating and text.
-* Redirects unauthenticated users.
+  * Title
+  * Description
+  * Price
+  * Owner
+  * Amenities
+* Shows reviews
+* Shows review form if user is logged in
 
-### 5. Admin Panel (Optional)
+### 4. Add Review (add_review.html)
 
-* Admin-only access.
-* Manage users, places, and amenities.
-
----
-
-## Technologies Used
-
-* HTML5 (Semantic structure)
-* CSS3 (Responsive design)
-* JavaScript ES6
-* Fetch API (AJAX requests)
-* JWT Authentication (Cookies)
+* Only for logged-in users
+* Submit review + rating
 
 ---
 
-## Project Structure
+## How It Works
+
+### Login Flow
+
+1. User submits form
+2. Request sent to:
+   `/auth/login`
+3. API returns token
+4. Token saved in cookie
+5. User redirected to index page
+
+---
+
+### Fetch Data
+
+All data is fetched using **Fetch API**:
+
+* Get places:
+  `/places`
+* Get place details:
+  `/places/:id`
+* Get reviews:
+  `/reviews/...`
+* Add review:
+  `/reviews/`
+
+---
+
+### Authentication
+
+* Token is stored in cookies
+* Used in requests like:
 
 ```
-part4/
-│
-├── index.html           # Main page (places list)
-├── login.html           # Login page
-├── place.html           # Place details page
-├── add_review.html      # Add review page
-├── admin.html           # Admin dashboard
-│
-├── css/
-│   └── styles.css       # Styling
-│
-├── js/
-│   ├── scripts.js       # Main frontend logic
-│   ├── admin.js         # Admin dashboard logic
-│   └── config.js        # API configuration
-│
-├── images/
-│   └── logo.png
-│
-└── README.md
+Authorization: Bearer <token>
 ```
 
 ---
 
-## Setup Instructions
+## Important Functions
 
-### 1. Clone Repository
+* `getCookie()` → read token
+* `setCookie()` → save token
+* `fetchPlaces()` → load places
+* `displayPlaces()` → show places
+* `loadPlaceDetails()` → load place info
+* `submitReview()` → send review
 
-```
-git clone https://github.com/<your-username>/holbertonschool-hbnb.git
-cd part4
-```
+---
 
-### 2. Start Backend Server
+## Run the Project
 
-Make sure your Flask API is running:
+1. Start backend:
 
 ```
 http://localhost:5000
 ```
 
-### 3. Open Frontend
-
-Open any HTML file in browser:
+2. Open in browser:
 
 ```
 index.html
@@ -111,153 +122,10 @@ index.html
 
 ---
 
-## API Configuration
+## Notes
 
-In `scripts.js`:
-
-```js
-const API_URL = 'http://localhost:5000/api/v1';
-```
-
-Make sure this matches your backend URL.
-
----
-
-## Authentication Flow
-
-1. User submits login form.
-2. Frontend sends POST request:
-
-```
-POST /auth/login
-```
-
-3. Backend returns JWT token.
-4. Token is stored in cookies:
-
-```js
-document.cookie = "token=...";
-```
-
-5. Token is included in future requests:
-
-```js
-Authorization: Bearer <token>
-```
-
----
-
-## Pages Description
-
-### Login Page (login.html)
-
-* Form with email & password
-* Sends login request
-* Stores token
-* Redirects to index
-
----
-
-### Index Page (index.html)
-
-* Displays all places
-* Each place shown as a card:
-
-  * Title
-  * Price
-  * View Details button
-* Price filtering (client-side)
-* Login link visibility based on authentication
-
----
-
-### Place Details Page (place.html)
-
-* Displays:
-
-  * Title
-  * Description
-  * Price
-  * Location
-  * Owner
-  * Amenities
-* Displays reviews
-* Shows review form if logged in
-
----
-
-### Add Review Page (add_review.html)
-
-* Accessible only if authenticated
-* Form includes:
-
-  * Review text
-  * Rating
-* Sends POST request to API
-
----
-
-### Admin Page (admin.html)
-
-* Restricted to admin users
-* Displays:
-
-  * Users
-  * Places
-  * Amenities
-* Supports delete operations
-
----
-
-## Key JavaScript Functions
-
-### Authentication
-
-* `getCookie(name)`
-* `setCookie(name, value)`
-* `isAuthenticated()`
-
-### Places
-
-* `fetchPlaces()`
-* `displayPlaces(places)`
-* `filterPlacesByPrice()`
-
-### Place Details
-
-* `loadPlaceDetails(placeId)`
-* `displayPlaceDetails(place)`
-* `loadReviews(placeId)`
-
-### Reviews
-
-* `submitReview(event)`
-
-### Admin
-
-* `checkAdmin()`
-* `loadDashboard()`
-* `deleteUser()`
-* `deletePlace()`
-* `deleteAmenity()`
-
----
-
-## Security Considerations
-
-* JWT stored in cookies for session management
-* Authorization header used for protected routes
-* HTML escaping to prevent XSS:
-
-```js
-escapeHtml()
-```
-
----
-
-## CORS Configuration (Backend Required)
-
-If you encounter CORS errors, update your Flask backend:
+* Make sure backend is running
+* Fix CORS if needed in Flask:
 
 ```python
 from flask_cors import CORS
@@ -266,28 +134,6 @@ CORS(app)
 
 ---
 
-## Validation
-
-* All HTML pages validated using W3C Validator
-* Responsive design supported
-
----
-
-## Future Improvements
-
-* Edit functionality for admin
-* Better UI/UX enhancements
-* Pagination for places
-* Search functionality
-
----
-
 ## Author
 
-HBnB Project – Frontend Part (Part 4)
-
----
-
-## License
-
-This project is for educational purposes (Holberton School).
+HBnB Project (Part 4)
