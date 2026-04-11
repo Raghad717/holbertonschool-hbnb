@@ -24,51 +24,52 @@ def main():
 
     app = create_app("development")
 
-    with app.app_context():
-        try:
-            # Step 1: Drop & Create tables
-            print("\nDropping existing tables...")
-            db.drop_all()
-            print("Creating fresh tables...")
-            db.create_all()
-            print("✅ Tables ready!")
+  with app.app_context():
+    try:
+        # Step 1: Drop & Create tables
+        print("\nDropping existing tables...")
+        db.drop_all()
 
-           # Step 2: Create Users
-print("\n📝 Creating users...")
+        print("Creating fresh tables...")
+        db.create_all()
 
-# Admin user
-admin = User(
-    id=str(uuid.uuid4()),
-    first_name='Raghad',
-    last_name='Almalki',
-    email='raghad@hbnb.com',
-    is_admin=True
-)
-admin.hash_password('admin123')
-db.session.add(admin)
+        print("✅ Tables ready!")
 
-jana = User(
-    id=str(uuid.uuid4()),
-    first_name='Jana',
-    last_name='Bakri',
-    email='jana@hbnb.com',
-    is_admin=False
-)
-jana.hash_password('jana123')
-db.session.add(jana)
+        # Step 2: Create Users
+        print("\n📝 Creating users...")
 
-rama = User(
-    id=str(uuid.uuid4()),
-    first_name='Rama',
-    last_name='Alshahri',
-    email='rama@hbnb.com',
-    is_admin=False
-)
-rama.hash_password('rama123')
-db.session.add(rama)
+        admin = User(
+            id=str(uuid.uuid4()),
+            first_name='Raghad',
+            last_name='Almalki',
+            email='raghad@hbnb.com',
+            is_admin=True
+        )
+        admin.hash_password('admin123')
+        db.session.add(admin)
 
-db.session.commit()
-print(f"✅ Created {User.query.count()} users")
+        jana = User(
+            id=str(uuid.uuid4()),
+            first_name='Jana',
+            last_name='Bakri',
+            email='jana@hbnb.com',
+            is_admin=False
+        )
+        jana.hash_password('jana123')
+        db.session.add(jana)
+
+        rama = User(
+            id=str(uuid.uuid4()),
+            first_name='Rama',
+            last_name='Alshahri',
+            email='rama@hbnb.com',
+            is_admin=False
+        )
+        rama.hash_password('rama123')
+        db.session.add(rama)
+
+        db.session.commit()
+        print(f"✅ Created {User.query.count()} users")
             
             # Step 3: Create Amenities
             print("\n📝 Creating amenities...")
