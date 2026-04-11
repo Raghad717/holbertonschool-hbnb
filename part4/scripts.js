@@ -30,7 +30,7 @@ function initLoginForm() {
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
-        // FIX: كان ID غلط (login-error-message)
+        // FIX:  (login-error-message)
         const errorDiv = document.getElementById('error-message');
 
         try {
@@ -42,11 +42,11 @@ function initLoginForm() {
 
             const data = await res.json();
 
-            // Debug (اختياري مفيد لك)
+            // Debug 
             console.log("LOGIN RESPONSE:", data);
 
             if (res.ok) {
-                // Save token (أفضل من cookies لكن خلّيته مثل مشروعك)
+                // Save token
                 setCookie('token', data.access_token);
 
                 console.log('Login successful, token saved');
