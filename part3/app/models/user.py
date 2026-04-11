@@ -1,4 +1,21 @@
-from .base_model import BaseModel
+#!/usr/bin/python3
+
+from __future__ import annotations
+
+import re
+from typing import TYPE_CHECKING
+
+from app.extensions import db, bcrypt
+from .base_model import BaseModel  
+
+if TYPE_CHECKING:
+    from .place import Place
+    from .review import Review
+
+
+_EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+
+
 class User(BaseModel):
     """
     User entity with SQLAlchemy mapping and password hashing.
