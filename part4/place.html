@@ -7,7 +7,10 @@
   <link rel="icon" href="images/icon.png">
   <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
+
+  <!-- HEADER -->
   <header>
     <div class="header-container">
       <img src="images/logo.png" alt="HBnB Logo" class="logo">
@@ -15,19 +18,26 @@
     </div>
   </header>
 
+  <!-- MAIN -->
   <main class="container">
-    <section id="place-details">
-      </section>
 
+    <!-- PLACE DETAILS -->
+    <section id="place-details"></section>
+
+    <!-- ADD REVIEW -->
     <section id="add-review-section" class="add-review-section card" style="display: none;">
       <h2>Add a Review</h2>
+
       <form id="review-form">
-        <!-- ✅ إضافة hidden field لتخزين place_id -->
+
+        <!-- hidden place id -->
         <input type="hidden" id="place-id">
+
         <div class="form-group">
           <label for="review-text">Your Review:</label>
           <textarea id="review-text" rows="4" required></textarea>
         </div>
+
         <div class="form-group">
           <label for="rating">Rating:</label>
           <select id="rating" required>
@@ -38,21 +48,27 @@
             <option value="5">5 Stars</option>
           </select>
         </div>
+
         <button type="submit" class="submit-button">Submit Review</button>
       </form>
     </section>
 
-    <section id="reviews-list" class="reviews-section">
+    <!-- REVIEWS -->
+    <section class="reviews-section">
       <h2>Reviews</h2>
-      <div id="reviews-container"></div>
+      <div id="reviews-list"></div>
     </section>
+
   </main>
 
+  <!-- FOOTER -->
   <footer>
     <p>© 2026 HBnB Evolution. All rights reserved.</p>
   </footer>
 
+  <!-- SCRIPTS -->
   <script src="js/utils.js"></script>
   <script src="js/scripts.js"></script>
+
 </body>
 </html>
