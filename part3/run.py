@@ -12,7 +12,10 @@ from app.api.v1.reviews import api as reviews_api
 # =====================================
 # Create App
 # =====================================
+from flask_cors import CORS
+
 app = Flask(__name__)
+CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
 # Configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///hbnb.db'
