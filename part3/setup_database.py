@@ -114,7 +114,7 @@ def main():
                 price=100.0,
                 latitude=24.7242,
                 longitude=46.6385,
-                owner_id=admin.id
+                owner_id=rama.id
             )
             place2.amenities.append(amenities['WiFi'])
             place2.amenities.append(amenities['Parking'])
@@ -141,7 +141,7 @@ def main():
                 price=10.0,
                 latitude=24.6877,
                 longitude=46.7219,
-                owner_id=admin.id
+                owner_id=jana.id
             )
             place4.amenities.append(amenities['WiFi'])
             place4.amenities.append(amenities['Pool'])
@@ -155,7 +155,7 @@ def main():
                 price=90.0,
                 latitude=24.7500,
                 longitude=46.6900,
-                owner_id=admin.id
+                owner_id=rama.id
             )
             place5.amenities.append(amenities['WiFi'])
             db.session.add(place5)
