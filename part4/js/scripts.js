@@ -27,6 +27,29 @@ function getPlaceIdFromURL() {
     return params.get('id');
 }
 
+function updateLoginLinkState(loginLink, token) {
+    if (!loginLink) return;
+    if (token) {
+        loginLink.textContent = 'Logout';
+        loginLink.href = '#';
+        loginLink.style.backgroundColor = 'var(--primary-purple)';
+        loginLink.style.color = 'white';
+        loginLink.style.display = 'block';
+        loginLink.onclick = (e) => {
+            e.preventDefault();
+            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            window.location.href = 'index.html';
+        };
+    } else {
+        loginLink.textContent = 'Login';
+        loginLink.href = 'login.html';
+        loginLink.style.backgroundColor = 'white';
+        loginLink.style.color = 'var(--primary-purple)';
+        loginLink.style.display = 'block';
+        loginLink.onclick = null;
+    }
+}
+
 /* LOGIN */
 async function loginUser(email, password) {
     const response = await fetch(`${API_URL}/auth/login`, {
@@ -47,9 +70,7 @@ function checkAuthIndex() {
     const token = getCookie('token');
     const loginLink = document.getElementById('login-link');
 
-    if (loginLink) {
-        loginLink.style.display = token ? 'none' : 'block';
-    }
+    updateLoginLinkState(loginLink, token);
 
     fetchPlaces(token);
 }
@@ -355,9 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const token = getCookie('token');
 
         const loginLink = document.getElementById('login-link');
-        if (loginLink) {
-            loginLink.style.display = token ? 'none' : 'block';
-        }
+        updateLoginLinkState(loginLink, token);
 
         const addReviewSection = document.getElementById('add-review-section');
         if (addReviewSection) {
