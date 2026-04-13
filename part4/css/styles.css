@@ -25,26 +25,8 @@ header, footer {
 }
 
 .header-content {
-    max-width: 1200px; /* Increased width */
-    margin: 0 auto;
-<<<<<<< HEAD
-    padding: 20px;
-}
-
-/* ===== Header ===== */
-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 20px 0;
-    box-shadow: 0 4px 6px rgba(146, 12, 194, 0.1);
-}
-
-.header-content {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
-=======
->>>>>>> 4a5154de8c5a129efe9ec48022e72a0af859c8ac
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -162,4 +144,30 @@ input, textarea, select {
 #place-name-header {
     font-size: 2rem;
     margin-bottom: 10px;
+}
+
+/* Amenities Styling */
+.amenities-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.amenity-tag {
+    background-color: var(--primary-orange);
+    color: var(--white);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    cursor: default;
+}
+
+.amenity-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    background-color: #e68a00;
 }
