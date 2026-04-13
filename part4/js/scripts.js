@@ -218,7 +218,7 @@ async function fetchReviews(token, placeId) {
             headers['Authorization'] = `Bearer ${token}`;
         }
 
-        const response = await fetch(`${API_URL}/places/${placeId}/reviews`, {
+        const response = await fetch(`${API_URL}/reviews/places/${placeId}/reviews`, {
             method: 'GET',
             headers: headers
         });
