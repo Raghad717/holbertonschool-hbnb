@@ -31,7 +31,6 @@ def review_to_dict(review):
 review_model = api.model('Review', {
     'text': fields.String(required=True, description='Review text', min_length=1),
     'rating': fields.Integer(required=True, description='Rating (1-5)', min=1, max=5),
-    'user_id': fields.String(required=True, description='User ID who wrote the review'),
     'place_id': fields.String(required=True, description='Place ID being reviewed')
 })
 
@@ -74,9 +73,8 @@ class ReviewList(Resource):
         # Get the current user from JWT token
         current_user_id = get_jwt_identity()
         
-        # Ensure the user_id in the payload matches the authenticated user
-        if review_data['user_id'] != current_user_id:
-            return {'error': 'Unauthorized: You can only create reviews as yourself'}, 401
+        # Enforce user_id equals current_user_id
+        review_data['user_id'] = current_user_id
 
         # Validate user exists
         user = facade.get_user(review_data['user_id'])
