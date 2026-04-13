@@ -253,3 +253,54 @@ input:focus, textarea:focus, select:focus {
     color: var(--text-secondary);
     line-height: 1.5;
 }
+
+/* Add Review Form Redesign */
+.star-rating {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.stars {
+    display: flex;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.star {
+    font-size: 1.8rem;
+    color: #444; /* inactive star color */
+    transition: color 0.2s;
+}
+
+.star.active, .star:hover, .star:hover ~ .star {
+    color: var(--primary-purple);
+}
+
+.stars:hover .star {
+    color: #444; /* Reset when hovering container to allow ~ trick to work if we reverse it, but JS handles it better */
+}
+
+.review-input-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.review-bar {
+    flex: 1;
+    margin-top: 0;
+    padding: 14px 18px;
+    border-radius: 30px;
+}
+
+.review-btn {
+    width: auto;
+    padding: 14px 24px;
+    border-radius: 30px;
+    margin: 0;
+}

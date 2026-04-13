@@ -369,6 +369,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const reviewForm = document.getElementById('review-form');
+        
+        // Star Rating Logic
+        const stars = document.querySelectorAll('.star');
+        const ratingInput = document.getElementById('rating');
+        if (stars.length > 0) {
+            stars.forEach(star => {
+                star.addEventListener('click', () => {
+                    const value = parseInt(star.getAttribute('data-value'), 10);
+                    ratingInput.value = value;
+                    stars.forEach(s => {
+                        if (parseInt(s.getAttribute('data-value'), 10) <= value) {
+                            s.classList.add('active');
+                        } else {
+                            s.classList.remove('active');
+                        }
+                    });
+                });
+            });
+        }
+
         if (reviewForm && placeId) {
             reviewForm.addEventListener('submit', async (event) => {
                 event.preventDefault();
