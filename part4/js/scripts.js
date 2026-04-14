@@ -27,6 +27,29 @@ function getPlaceIdFromURL() {
     return params.get('id');
 }
 
+function updateLoginLinkState(loginLink, token) {
+    if (!loginLink) return;
+    if (token) {
+        loginLink.textContent = 'Logout';
+        loginLink.href = '#';
+        loginLink.style.backgroundColor = 'var(--primary-purple)';
+        loginLink.style.color = 'white';
+        loginLink.style.display = 'block';
+        loginLink.onclick = (e) => {
+            e.preventDefault();
+            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            window.location.href = 'index.html';
+        };
+    } else {
+        loginLink.textContent = 'Login';
+        loginLink.href = 'login.html';
+        loginLink.style.backgroundColor = 'white';
+        loginLink.style.color = 'var(--primary-purple)';
+        loginLink.style.display = 'block';
+        loginLink.onclick = null;
+    }
+}
+
 /* LOGIN */
 async function loginUser(email, password) {
     const response = await fetch(`${API_URL}/auth/login`, {
@@ -47,9 +70,7 @@ function checkAuthIndex() {
     const token = getCookie('token');
     const loginLink = document.getElementById('login-link');
 
-    if (loginLink) {
-        loginLink.style.display = token ? 'none' : 'block';
-    }
+    updateLoginLinkState(loginLink, token);
 
     fetchPlaces(token);
 }
@@ -218,7 +239,7 @@ async function fetchReviews(token, placeId) {
             headers['Authorization'] = `Bearer ${token}`;
         }
 
-        const response = await fetch(`${API_URL}/places/${placeId}/reviews`, {
+        const response = await fetch(`${API_URL}/reviews/places/${placeId}/reviews`, {
             method: 'GET',
             headers: headers
         });
@@ -236,7 +257,7 @@ function displayReviews(reviews) {
     const section = document.getElementById('reviews-list');
     if (!section) return;
 
-    section.innerHTML = '<h2>Reviews</h2>';
+    section.innerHTML = '';
 
     if (!reviews || reviews.length === 0) {
         section.innerHTML += '<p style="color: var(--text-light);">No reviews yet. Be the first!</p>';
@@ -372,9 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const token = getCookie('token');
 
         const loginLink = document.getElementById('login-link');
-        if (loginLink) {
-            loginLink.style.display = token ? 'none' : 'block';
-        }
+        updateLoginLinkState(loginLink, token);
 
         const addReviewSection = document.getElementById('add-review-section');
         if (addReviewSection) {
@@ -386,6 +405,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const reviewForm = document.getElementById('review-form');
+        
+        // Star Rating Logic
+        const stars = document.querySelectorAll('.star');
+        const ratingInput = document.getElementById('rating');
+        if (stars.length > 0) {
+            stars.forEach(star => {
+                star.addEventListener('click', () => {
+                    const value = parseInt(star.getAttribute('data-value'), 10);
+                    ratingInput.value = value;
+                    stars.forEach(s => {
+                        if (parseInt(s.getAttribute('data-value'), 10) <= value) {
+                            s.classList.add('active');
+                        } else {
+                            s.classList.remove('active');
+                        }
+                    });
+                });
+            });
+        }
+
         if (reviewForm && placeId) {
             reviewForm.addEventListener('submit', async (event) => {
                 event.preventDefault();

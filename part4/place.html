@@ -33,23 +33,22 @@
         <!-- hidden place id -->
         <input type="hidden" id="place-id">
 
-        <div class="form-group">
-          <label for="review-text">Your Review:</label>
-          <textarea id="review-text" rows="4" required></textarea>
+        <div class="star-rating">
+          <label>Rating:</label>
+          <div class="stars" id="star-widget">
+            <span class="star active" data-value="1">★</span>
+            <span class="star active" data-value="2">★</span>
+            <span class="star active" data-value="3">★</span>
+            <span class="star active" data-value="4">★</span>
+            <span class="star active" data-value="5">★</span>
+          </div>
+          <input type="hidden" id="rating" value="5" required>
         </div>
 
-        <div class="form-group">
-          <label for="rating">Rating:</label>
-          <select id="rating" required>
-            <option value="1">1 Star</option>
-            <option value="2">2 Stars</option>
-            <option value="3">3 Stars</option>
-            <option value="4">4 Stars</option>
-            <option value="5">5 Stars</option>
-          </select>
+        <div class="review-input-row">
+          <input type="text" id="review-text" class="review-bar" placeholder="Write a comment about this place..." autocomplete="off" required>
+          <button type="submit" class="submit-button review-btn">Post</button>
         </div>
-
-        <button type="submit" class="submit-button">Submit Review</button>
       </form>
     </section>
 

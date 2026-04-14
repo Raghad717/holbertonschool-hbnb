@@ -25,52 +25,52 @@ def main():
 
     app = create_app("development")
 
-   with app.app_context():
-    try:
-        # Step 1: Drop & Create tables
-        print("\nDropping existing tables...")
-        db.drop_all()
+    with app.app_context():
+        try:
+            # Step 1: Drop & Create tables
+            print("\nDropping existing tables...")
+            db.drop_all()
 
-        print("Creating fresh tables...")
-        db.create_all()
+            print("Creating fresh tables...")
+            db.create_all()
 
-        print("✅ Tables ready!")
+            print("✅ Tables ready!")
 
-        # Step 2: Create Users
-        print("\n📝 Creating users...")
+            # Step 2: Create Users
+            print("\n📝 Creating users...")
 
-        admin = User(
-            id=str(uuid.uuid4()),
-            first_name='Raghad',
-            last_name='Almalki',
-            email='raghad@hbnb.com',
-            is_admin=True
-        )
-        admin.hash_password('admin123')
-        db.session.add(admin)
+            admin = User(
+                id=str(uuid.uuid4()),
+                first_name='Raghad',
+                last_name='Almalki',
+                email='raghad@hbnb.com',
+                is_admin=True
+            )
+            admin.hash_password('admin123')
+            db.session.add(admin)
 
-        jana = User(
-            id=str(uuid.uuid4()),
-            first_name='Jana',
-            last_name='Bakri',
-            email='jana@hbnb.com',
-            is_admin=False
-        )
-        jana.hash_password('jana123')
-        db.session.add(jana)
+            jana = User(
+                id=str(uuid.uuid4()),
+                first_name='Jana',
+                last_name='Bakri',
+                email='jana@hbnb.com',
+                is_admin=False
+            )
+            jana.hash_password('jana123')
+            db.session.add(jana)
 
-        rama = User(
-            id=str(uuid.uuid4()),
-            first_name='Rama',
-            last_name='Alshahri',
-            email='rama@hbnb.com',
-            is_admin=False
-        )
-        rama.hash_password('rama123')
-        db.session.add(rama)
+            rama = User(
+                id=str(uuid.uuid4()),
+                first_name='Rama',
+                last_name='Alshahri',
+                email='rama@hbnb.com',
+                is_admin=False
+            )
+            rama.hash_password('rama123')
+            db.session.add(rama)
 
-        db.session.commit()
-        print(f"✅ Created {User.query.count()} users")
+            db.session.commit()
+            print(f"✅ Created {User.query.count()} users")
             
             # Step 3: Create Amenities
             print("\n📝 Creating amenities...")
@@ -99,7 +99,7 @@ def main():
                 price=100.0,
                 latitude=24.7136,
                 longitude=46.6753,
-                owner_id=admin.id
+                owner_id=jana.id
             )
             place1.amenities.append(amenities['WiFi'])
             place1.amenities.append(amenities['Pool'])
@@ -114,7 +114,7 @@ def main():
                 price=100.0,
                 latitude=24.7242,
                 longitude=46.6385,
-                owner_id=admin.id
+                owner_id=rama.id
             )
             place2.amenities.append(amenities['WiFi'])
             place2.amenities.append(amenities['Parking'])
@@ -141,7 +141,7 @@ def main():
                 price=10.0,
                 latitude=24.6877,
                 longitude=46.7219,
-                owner_id=admin.id
+                owner_id=jana.id
             )
             place4.amenities.append(amenities['WiFi'])
             place4.amenities.append(amenities['Pool'])
@@ -155,7 +155,7 @@ def main():
                 price=90.0,
                 latitude=24.7500,
                 longitude=46.6900,
-                owner_id=admin.id
+                owner_id=rama.id
             )
             place5.amenities.append(amenities['WiFi'])
             db.session.add(place5)

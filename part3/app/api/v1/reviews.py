@@ -16,11 +16,16 @@ def is_admin():
 
 def review_to_dict(review):
     """Convert review object to dictionary"""
+    user_name = None
+    if hasattr(review, 'user') and review.user:
+        user_name = review.user.get_full_name()
+
     return {
         'id': review.id,
         'text': review.text,
         'rating': review.rating,
         'user_id': review.user_id,
+        'user_name': user_name,
         'place_id': review.place_id,
         'created_at': review.created_at.isoformat() if review.created_at else None,
         'updated_at': review.updated_at.isoformat() if review.updated_at else None
@@ -31,7 +36,6 @@ def review_to_dict(review):
 review_model = api.model('Review', {
     'text': fields.String(required=True, description='Review text', min_length=1),
     'rating': fields.Integer(required=True, description='Rating (1-5)', min=1, max=5),
-    'user_id': fields.String(required=True, description='User ID who wrote the review'),
     'place_id': fields.String(required=True, description='Place ID being reviewed')
 })
 
@@ -41,6 +45,7 @@ review_response_model = api.model('ReviewResponse', {
     'text': fields.String(description='Review text'),
     'rating': fields.Integer(description='Rating'),
     'user_id': fields.String(description='User ID'),
+    'user_name': fields.String(description='Reviewer Name'),
     'place_id': fields.String(description='Place ID'),
     'created_at': fields.String(description='Creation date'),
     'updated_at': fields.String(description='Last update date')
@@ -74,9 +79,8 @@ class ReviewList(Resource):
         # Get the current user from JWT token
         current_user_id = get_jwt_identity()
         
-        # Ensure the user_id in the payload matches the authenticated user
-        if review_data['user_id'] != current_user_id:
-            return {'error': 'Unauthorized: You can only create reviews as yourself'}, 401
+        # Enforce user_id equals current_user_id
+        review_data['user_id'] = current_user_id
 
         # Validate user exists
         user = facade.get_user(review_data['user_id'])
