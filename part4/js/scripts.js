@@ -216,30 +216,30 @@ function displayPlaceDetails(place) {
 
     // Map amenity keywords → Font Awesome icon classes
     const amenityIconMap = [
-        { keywords: ['wifi', 'wi-fi', 'internet', 'wireless'],    icon: 'fa-solid fa-wifi' },
-        { keywords: ['bed', 'bedroom', 'sleep', 'beds'],           icon: 'fa-solid fa-bed' },
-        { keywords: ['bath', 'bathroom', 'bathtub', 'shower'],     icon: 'fa-solid fa-shower' },
-        { keywords: ['pool', 'swimming'],                          icon: 'fa-solid fa-person-swimming' },
-        { keywords: ['parking', 'garage', 'car'],                  icon: 'fa-solid fa-square-parking' },
-        { keywords: ['kitchen', 'cooking', 'oven', 'microwave'],   icon: 'fa-solid fa-kitchen-set' },
-        { keywords: ['air', 'ac', 'conditioning', 'cooling'],      icon: 'fa-solid fa-snowflake' },
-        { keywords: ['heating', 'heater', 'heat'],                 icon: 'fa-solid fa-temperature-high' },
-        { keywords: ['tv', 'television', 'netflix', 'cable'],      icon: 'fa-solid fa-tv' },
-        { keywords: ['washer', 'laundry', 'dryer', 'washing'],     icon: 'fa-solid fa-jug-detergent' },
-        { keywords: ['gym', 'fitness', 'workout', 'exercise'],     icon: 'fa-solid fa-dumbbell' },
-        { keywords: ['pet', 'dog', 'cat', 'animal'],               icon: 'fa-solid fa-paw' },
-        { keywords: ['smoke', 'smoking'],                          icon: 'fa-solid fa-smoking' },
-        { keywords: ['breakfast', 'coffee', 'food', 'meal'],       icon: 'fa-solid fa-mug-hot' },
-        { keywords: ['balcony', 'terrace', 'patio', 'garden'],     icon: 'fa-solid fa-umbrella-beach' },
-        { keywords: ['elevator', 'lift'],                          icon: 'fa-solid fa-elevator' },
-        { keywords: ['fireplace', 'fire'],                         icon: 'fa-solid fa-fire' },
-        { keywords: ['desk', 'workspace', 'office', 'work'],       icon: 'fa-solid fa-briefcase' },
-        { keywords: ['security', 'lock', 'safe', 'alarm'],         icon: 'fa-solid fa-shield-halved' },
-        { keywords: ['baby', 'crib', 'children', 'kid'],           icon: 'fa-solid fa-baby' },
-        { keywords: ['bbq', 'grill', 'barbecue'],                  icon: 'fa-solid fa-fire-burner' },
-        { keywords: ['boat', 'kayak', 'canoe', 'water sport'],     icon: 'fa-solid fa-sailboat' },
-        { keywords: ['beach', 'sea', 'ocean', 'lake'],             icon: 'fa-solid fa-water' },
-        { keywords: ['mountain', 'ski', 'snow', 'hill'],           icon: 'fa-solid fa-mountain-sun' },
+        { keywords: ['wifi', 'wi-fi', 'internet', 'wireless'], icon: 'fa-solid fa-wifi' },
+        { keywords: ['bed', 'bedroom', 'sleep', 'beds'], icon: 'fa-solid fa-bed' },
+        { keywords: ['bath', 'bathroom', 'bathtub', 'shower'], icon: 'fa-solid fa-shower' },
+        { keywords: ['pool', 'swimming'], icon: 'fa-solid fa-person-swimming' },
+        { keywords: ['parking', 'garage', 'car'], icon: 'fa-solid fa-square-parking' },
+        { keywords: ['kitchen', 'cooking', 'oven', 'microwave'], icon: 'fa-solid fa-kitchen-set' },
+        { keywords: ['air', 'ac', 'conditioning', 'cooling'], icon: 'fa-solid fa-snowflake' },
+        { keywords: ['heating', 'heater', 'heat'], icon: 'fa-solid fa-temperature-high' },
+        { keywords: ['tv', 'television', 'netflix', 'cable'], icon: 'fa-solid fa-tv' },
+        { keywords: ['washer', 'laundry', 'dryer', 'washing'], icon: 'fa-solid fa-jug-detergent' },
+        { keywords: ['gym', 'fitness', 'workout', 'exercise'], icon: 'fa-solid fa-dumbbell' },
+        { keywords: ['pet', 'dog', 'cat', 'animal'], icon: 'fa-solid fa-paw' },
+        { keywords: ['smoke', 'smoking'], icon: 'fa-solid fa-smoking' },
+        { keywords: ['breakfast', 'coffee', 'food', 'meal'], icon: 'fa-solid fa-mug-hot' },
+        { keywords: ['balcony', 'terrace', 'patio', 'garden'], icon: 'fa-solid fa-umbrella-beach' },
+        { keywords: ['elevator', 'lift'], icon: 'fa-solid fa-elevator' },
+        { keywords: ['fireplace', 'fire'], icon: 'fa-solid fa-fire' },
+        { keywords: ['desk', 'workspace', 'office', 'work'], icon: 'fa-solid fa-briefcase' },
+        { keywords: ['security', 'lock', 'safe', 'alarm'], icon: 'fa-solid fa-shield-halved' },
+        { keywords: ['baby', 'crib', 'children', 'kid'], icon: 'fa-solid fa-baby' },
+        { keywords: ['bbq', 'grill', 'barbecue'], icon: 'fa-solid fa-fire-burner' },
+        { keywords: ['boat', 'kayak', 'canoe', 'water sport'], icon: 'fa-solid fa-sailboat' },
+        { keywords: ['beach', 'sea', 'ocean', 'lake'], icon: 'fa-solid fa-water' },
+        { keywords: ['mountain', 'ski', 'snow', 'hill'], icon: 'fa-solid fa-mountain-sun' },
     ];
 
     function getAmenityIcon(name) {
@@ -257,7 +257,7 @@ function displayPlaceDetails(place) {
         ? place.amenities.map(a => {
             const label = a.name || a;
             return `<span class="amenity-tag">${getAmenityIcon(label)}${label}</span>`;
-          }).join('')
+        }).join('')
         : '<span class="amenity-tag"><i class="fa-solid fa-circle-info amenity-icon-fa"></i>None listed</span>';
 
     section.innerHTML = `
@@ -344,11 +344,11 @@ function parseJwt(token) {
     try {
         const base64Url = token.split('.')[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
             return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
         }).join(''));
         return JSON.parse(jsonPayload);
-    } catch(e) {
+    } catch (e) {
         return null;
     }
 }
@@ -453,7 +453,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const reviewForm = document.getElementById('review-form');
-        
+
         // Star Rating Logic
         const stars = document.querySelectorAll('.star');
         const ratingInput = document.getElementById('rating');
